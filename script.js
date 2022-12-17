@@ -2,6 +2,7 @@ let p = document.querySelector("#text")
 let spans = document.querySelectorAll("p#text>span");
 let jsonInput = document.querySelector("#jsonFile");
 let tagButtons = document.querySelector("div.tags");
+let tagInput = document.querySelector("#tagInputButton");
 let firstElement;
 let secondElement;
 let startIndex;
@@ -15,6 +16,10 @@ let entities = [];
 
 addEventsToSpans();
 
+
+tagInput.addEventListener("mousedown", (event) => {
+    addTag();
+})
 
 // Handle JSON upload.
 jsonInput.addEventListener("change", function () {
@@ -37,7 +42,13 @@ jsonInput.addEventListener("change", function () {
 
 
 // TODO: Ability to add new tags.
-
+function addTag() {
+    let tag = document.querySelector("#tagInput").value.toUpperCase();
+    if (!tags.includes(tag)) {
+        tags.push(tag);
+        updateTagButtons();
+    }
+}
 // TODO: Only text input.
 
 // Events for selecting and tagging elements with mouse.
