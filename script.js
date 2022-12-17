@@ -36,6 +36,10 @@ jsonInput.addEventListener("change", function () {
 })
 
 
+// TODO: Ability to add new tags.
+
+// TODO: Only text input.
+
 // Events for selecting and tagging elements with mouse.
 function addEventsToSpans() {
     spans = document.querySelectorAll("p#text>span");
