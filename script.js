@@ -14,6 +14,7 @@ let entities = [];
 
 
 addEventsToSpans();
+updateTagButtons();
 
 
 // Handle JSON upload.
@@ -58,6 +59,7 @@ function addEventsToSpans() {
 }
 
 function createHTMLFromJSON(json) {
+    p.innerHTML = "";
     let elements = json["text"].split(" ");
     elements.forEach((element) => {
         let span = document.createElement("span");
