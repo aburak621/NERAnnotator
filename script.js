@@ -2,7 +2,8 @@ let p = document.querySelector("#text")
 let spans = document.querySelectorAll("p#text>span");
 let jsonInput = document.querySelector("#jsonFile");
 let tagButtons = document.querySelector("div.tags");
-let tagInput = document.querySelector("#tagInputButton");
+let tagInputButton = document.querySelector("#tagInputButton");
+let textInputButton = document.querySelector("#textInputButton");
 let firstElement;
 let secondElement;
 let startIndex;
@@ -18,8 +19,13 @@ addEventsToSpans();
 updateTagButtons();
 
 
-tagInput.addEventListener("mousedown", (event) => {
+tagInputButton.addEventListener("mousedown", () => {
     addTag();
+})
+
+textInputButton.addEventListener("mousedown", () => {
+    let textInput = document.querySelector("#textInput").value;
+    createHTMLFromInput(textInput);
 })
 
 // Handle JSON upload.
@@ -28,7 +34,7 @@ jsonInput.addEventListener("change", function () {
     fr.onload = function () {
         let json = JSON.parse(fr.result);
         // Update content and variables according to the JSON.
-        createHTMLFromJSON(json);
+        createHTMLFromInput(json["text"]);
         entities = json["entities"];
         // Add new tags to the tags list
         entities.forEach((entity) => {
@@ -42,7 +48,7 @@ jsonInput.addEventListener("change", function () {
 })
 
 
-// TODO: Ability to add new tags.
+// Ability to add new tags.
 function addTag() {
     let tag = document.querySelector("#tagInput").value.toUpperCase();
     if (!tags.includes(tag)) {
@@ -50,7 +56,12 @@ function addTag() {
         updateTagButtons();
     }
 }
-// TODO: Only text input.
+
+// Only text input.
+function getPlainTextInput() {
+    let textContent = document.querySelector("#textInput").value;
+
+}
 
 // Events for selecting and tagging elements with mouse.
 function addEventsToSpans() {
@@ -69,9 +80,9 @@ function addEventsToSpans() {
     })
 }
 
-function createHTMLFromJSON(json) {
+function createHTMLFromInput(text) {
     p.innerHTML = "";
-    let elements = json["text"].split(" ");
+    let elements = text.split(" ");
     elements.forEach((element) => {
         let span = document.createElement("span");
         span.appendChild(document.createTextNode(element));
