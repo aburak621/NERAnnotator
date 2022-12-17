@@ -5,22 +5,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="script.js">
+  <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
   <title>NER Annotator</title>
 </head>
 
 <body>
+  <input type="file" name="jsonFile" id="jsonFile">
+  <div class="tags">
+    <div id="person" class="tag selected">PERSON</div>
+    <div id="org" class="tag">ORG</div>
+  </div>
   <p id="text">
     <span>I</span>
     <span>want</span>
-    <span>to</span>
+    <span>to,</span>
     <span>nominate</span>
     <span>this</span>
     <span>award</span>
     <span>to</span>
     <span>reformed</span>
-    <span>to</span>
     <span>orthodox</span>
     <span>rabbi</span>
     <span>Bill</span>
