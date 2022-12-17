@@ -55,6 +55,12 @@ copyOutputButton.addEventListener("mousedown", () => {
 })
 
 
+// TODO: Put tag name near the selected words.
+
+// TODO: Tag colors.
+
+// TODO: Page style.
+
 // Ability to add new tags.
 function addTag() {
     let tag = document.querySelector("#tagInput").value.toUpperCase();
@@ -62,12 +68,6 @@ function addTag() {
         tags.push(tag);
         updateTagButtons();
     }
-}
-
-// Only text input.
-function getPlainTextInput() {
-    let textContent = document.querySelector("#textInput").value;
-
 }
 
 // Events for selecting and tagging elements with mouse.
