@@ -4,6 +4,8 @@ let jsonInput = document.querySelector("#jsonFile");
 let tagButtons = document.querySelector("div.tags");
 let tagInputButton = document.querySelector("#tagInputButton");
 let textInputButton = document.querySelector("#textInputButton");
+let outputJSON = document.querySelector("#outputJSON");
+let copyOutputButton = document.querySelector("#copyOutputButton");
 let firstElement;
 let secondElement;
 let startIndex;
@@ -45,6 +47,11 @@ jsonInput.addEventListener("change", function () {
         updateTagButtons();
     }
     fr.readAsText(this.files[0]);
+})
+
+copyOutputButton.addEventListener("mousedown", () => {
+    navigator.clipboard.writeText(outputJSON.value);
+    alert("Copied JSON to clipboard.");
 })
 
 
@@ -124,9 +131,18 @@ function applyTag() {
             overlappedEntitiesToBeDeleted.push(i);
         }
     }
+    let deleted = false;
+    if (overlappedEntitiesToBeDeleted.length != 0) {
+        deleted = true;
+    }
     overlappedEntitiesToBeDeleted.reverse().forEach((index) => {
         entities.splice(index, 1);
     })
+    if (deleted) {
+        if (startIndex == endIndex) {
+            return;
+        }
+    }
 
     // Add the new tag to entities.
     let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag };
@@ -155,6 +171,7 @@ function getSelectedElements() {
         selectionText += spans[i].textContent + " ";
     }
     // Strip the punctuations and trim the corner space. Stripping punctuations might change!.
+    // TODO: Look at the regex.
     var regex = /[!"#$%&"()*+,-./:;<=>?@[\]^_`{|}~]/g;
     selectionText = selectionText.replace(regex, "");
     selectionText = selectionText.trim();
@@ -164,5 +181,6 @@ function getSelectedElements() {
 function exportAsJSON() {
     json = { "text": p.innerText, "entities": entities };
     json = JSON.stringify(json, null, 2);
+    outputJSON.textContent = json;
     console.log(json);
 }
