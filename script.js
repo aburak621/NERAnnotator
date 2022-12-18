@@ -155,24 +155,30 @@ function applyTag() {
     let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag["tag"] };
     entities.push(entity);
     changeTaggedTextBackground(startIndex, endIndex, currentTag)
-    addTagNameElement(currentTag, endIndex, entities.length - 1);
 }
 
 function changeTaggedTextBackground(startIndex, endIndex, tag) {
+    let newParent = document.createElement("b");
+    // let newParent = document.createElement("div");
+    // newParent.style.display = "inline-block";
+    newParent.style.backgroundColor = tag["color"];
+    spans[startIndex].parentNode.insertBefore(newParent, spans[startIndex]);
     for (let i = startIndex; i <= endIndex; i++) {
-        spans[i].style.backgroundColor = tag["color"];
+        newParent.appendChild(spans[i]);
+        newParent.innerHTML += " ";
     }
+    addTagNameElement(tag, endIndex, newParent);
 }
 
-function addTagNameElement(tag, endIndex, indexInEntities) {
+function addTagNameElement(tag, endIndex, newParent) {
     let tagElement = document.createElement("b");
     tagElement.appendChild(document.createTextNode(tag["tag"]));
-    spans[endIndex].parentNode.insertBefore(tagElement, spans[endIndex].nextSibling);
+    newParent.appendChild(tagElement);
 }
 
 function removeTagNameElement(indexInEntities) {
     let lastElement = spans[entities[indexInEntities]["endIndex"]];
-    lastElement.parentNode.removeChild(lastElement.nextSibling);
+    lastElement.removeChild(lastElement.nextSibling);
 }
 
 // Get the selected elements and update the variables for tagging.
