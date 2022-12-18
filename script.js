@@ -54,9 +54,6 @@ copyOutputButton.addEventListener("mousedown", () => {
     alert("Copied JSON to clipboard.");
 })
 
-
-// TODO: Put tag name near the selected words.
-
 // TODO: Tag colors.
 
 // TODO: Page style.
@@ -193,7 +190,11 @@ function getSelectedElements() {
 
 // Create the final JSON to be exported.
 function exportAsJSON() {
-    json = { "text": p.innerText, "entities": entities };
+    let text = "";
+    spans.forEach((span) => {
+        text += span.innerText + " ";
+    })
+    json = { "text": text.trim(), "entities": entities };
     json = JSON.stringify(json, null, 2);
     outputJSON.textContent = json;
     console.log(json);
