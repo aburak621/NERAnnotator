@@ -16,9 +16,21 @@
   </nav>
   <div class="content">
     <div class="sidebar">
-      <textarea name="" id="textInput">Bruh</textarea>
-      <input type="submit" value="Submit" id="textInputButton">
-      <input type="file" name="jsonFile" id="jsonFile">
+      <sidebar-item>
+        <h4 class="input-title">Text Input</h4>
+        <textarea class="output" name="" id="textInput">Bruh</textarea>
+        <input class="button" type="submit" value="Submit" id="textInputButton">
+      </sidebar-item>
+      <div class="sidebar-item">
+        <input type="file" name="jsonFile" id="jsonFile" style="display:none;">
+        <h4 class="input-title">JSON Input</h4>
+        <label for="jsonFile" class="button">Choose file</label>
+      </div>
+      <div class="sidebar-item">
+        <h4 class="input-title">Output</h4>
+        <textarea class="output" id="outputJSON" cols="30" rows="10" readonly></textarea>
+        <input class="button" type="submit" value="Copy Output" id="copyOutputButton">
+      </div>
     </div>
     <div class="center">
       <div class="tag-section">
@@ -28,7 +40,7 @@
         </div>
         <div class="add-tag">
           <input name="tagInput" type="text" id="tagInput" />
-          <div class="tag">+</div>
+          <div class="tag plus-button">+</div>
         </div>
       </div>
       <p id="text">
@@ -47,8 +59,6 @@
       </p>
     </div>
     <div class="sidebar-right">
-      <textarea id="outputJSON" cols="30" rows="10" readonly></textarea>
-      <input type="submit" value="Copy Output" id="copyOutputButton">
     </div>
   </div>
 

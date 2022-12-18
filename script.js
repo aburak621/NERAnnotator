@@ -12,7 +12,7 @@ let startIndex;
 let endIndex;
 let selection = [];
 let selectionText = "";
-let tags = ["PERSON", "ORG"];
+let tags = ["PERSON", "ORG", "DATE", "TIME", "LOCATION", "MONEY", "PERCENT", "PRODUCT", "EVENT", "WORK_OF_ART", "LAW", "LANGUAGE", "NORP", "FAC", "GPE", "CARDINAL", "ORDINAL", "QUANTITY", "MISC"];
 let currentTag = tags[0];
 let entities = [];
 
@@ -151,13 +151,12 @@ function applyTag() {
 function addTagNameElement(tag, endIndex, indexInEntities) {
     let tagElement = document.createElement("b");
     tagElement.appendChild(document.createTextNode(tag));
-    tagElement.id = "tag" + indexInEntities;
     spans[endIndex].parentNode.insertBefore(tagElement, spans[endIndex].nextSibling);
 }
 
 function removeTagNameElement(indexInEntities) {
-    let tagElement = document.querySelector("#tag" + indexInEntities);
-    tagElement.parentNode.removeChild(tagElement);
+    let lastElement = spans[entities[indexInEntities]["endIndex"]];
+    lastElement.parentNode.removeChild(lastElement.nextSibling);
 }
 
 // Get the selected elements and update the variables for tagging.
