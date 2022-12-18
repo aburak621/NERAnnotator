@@ -12,7 +12,7 @@ let startIndex;
 let endIndex;
 let selection = [];
 let selectionText = "";
-let colors = ["#E81A0C", "#FE6900", "#FEB912", "#FEDA49", "#AFF218", "#FE7D87", "#E54887", "#F4AFCA", "#702BFE", "#B0A6E5", "#2C81FB", "#98DD62", "#039C55", "#33A8A1", "#87DBDD", "#5BA6EB"];
+let colors = ["#E81A0C", "#FE6900", "#FEB912", "#FEDA49", "#AFF218", "#FE7D87", "#E54887", "#F4AFCA", "#9e6dff", "#B0A6E5", "#2C81FB", "#98DD62", "#039C55", "#33A8A1", "#87DBDD", "#5BA6EB"];
 shuffleArray(colors);
 let currentColorIndex = 2;
 let tags = [{ "tag": "PERSON", "color": colors[0] }, { "tag": "ORG", "color": colors[1] }];
