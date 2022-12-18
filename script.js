@@ -1,5 +1,5 @@
 let p = document.querySelector("#text")
-let spans = document.querySelectorAll("p#text>span");
+let spans = document.querySelectorAll("p#text span");
 let jsonInput = document.querySelector("#jsonFile");
 let tagButtons = document.querySelector("div.tags");
 let tagInputButton = document.querySelector(".plus-button");
@@ -16,7 +16,7 @@ let colors = ["#E81A0C", "#FE6900", "#FEB912", "#FEDA49", "#AFF218", "#FE7D87", 
 shuffleArray(colors);
 let currentColorIndex = 2;
 let tags = [{ "tag": "PERSON", "color": colors[0] }, { "tag": "ORG", "color": colors[1] }];
-let currentTag = tags[0]["tag"];
+let currentTag = tags[0];
 let entities = [];
 
 addEventsToSpans();
@@ -71,7 +71,7 @@ function addTag() {
 
 // Events for selecting and tagging elements with mouse.
 function addEventsToSpans() {
-    spans = document.querySelectorAll("p#text>span");
+    spans = document.querySelectorAll("p#text span");
     spans.forEach((element) => {
         element.addEventListener("mousedown", (event) => {
             firstElement = event.target;
@@ -108,7 +108,13 @@ function updateTagButtons() {
         tagButton.classList.add("tag");
         tagButton.style.backgroundColor = tag["color"];
         tagButton.addEventListener("mousedown", (event) => {
-            currentTag = tagButton.innerText;
+            tags.every((element) => {
+                if (element["tag"] == event.target.innerText) {
+                    currentTag = element;
+                    return false;
+                }
+                return true;
+            })
             tagButtons.childNodes.forEach((button) => {
                 button.classList.remove("selected");
             })
@@ -120,7 +126,7 @@ function updateTagButtons() {
         }
         tagButtons.appendChild(tagButton);
     })
-    currentTag = tags[0]["tag"];
+    currentTag = tags[0];
 }
 
 // Apply currently selected tag to the highlighted elements. If it overlaps with other tags deleted those other tags.
@@ -146,14 +152,21 @@ function applyTag() {
     }
 
     // Add the new tag to entities.
-    let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag };
+    let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag["tag"] };
     entities.push(entity);
+    changeTaggedTextBackground(startIndex, endIndex, currentTag)
     addTagNameElement(currentTag, endIndex, entities.length - 1);
+}
+
+function changeTaggedTextBackground(startIndex, endIndex, tag) {
+    for (let i = startIndex; i <= endIndex; i++) {
+        spans[i].style.backgroundColor = tag["color"];
+    }
 }
 
 function addTagNameElement(tag, endIndex, indexInEntities) {
     let tagElement = document.createElement("b");
-    tagElement.appendChild(document.createTextNode(tag));
+    tagElement.appendChild(document.createTextNode(tag["tag"]));
     spans[endIndex].parentNode.insertBefore(tagElement, spans[endIndex].nextSibling);
 }
 
