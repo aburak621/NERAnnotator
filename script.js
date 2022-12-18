@@ -136,6 +136,7 @@ function applyTag() {
         deleted = true;
     }
     overlappedEntitiesToBeDeleted.reverse().forEach((index) => {
+        removeTagNameElement(index);
         entities.splice(index, 1);
     })
     if (deleted) {
@@ -147,6 +148,19 @@ function applyTag() {
     // Add the new tag to entities.
     let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag };
     entities.push(entity);
+    addTagNameElement(currentTag, endIndex, entities.length - 1);
+}
+
+function addTagNameElement(tag, endIndex, indexInEntities) {
+    let tagElement = document.createElement("b");
+    tagElement.appendChild(document.createTextNode(tag));
+    tagElement.id = "tag" + indexInEntities;
+    spans[endIndex].parentNode.insertBefore(tagElement, spans[endIndex].nextSibling);
+}
+
+function removeTagNameElement(indexInEntities) {
+    let tagElement = document.querySelector("#tag" + indexInEntities);
+    tagElement.parentNode.removeChild(tagElement);
 }
 
 // Get the selected elements and update the variables for tagging.
