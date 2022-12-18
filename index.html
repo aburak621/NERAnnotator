@@ -10,34 +10,46 @@
   <title>NER Annotator</title>
 </head>
 
-<body>
-  <input type="file" name="jsonFile" id="jsonFile">
-  <textarea name="" id="textInput" cols="30" rows="10">Bruh</textarea>
-  <input type="submit" value="Submit" id="textInputButton">
-  <textarea id="outputJSON" cols="30" rows="10" readonly></textarea>
-  <input type="submit" value="Copy Output" id="copyOutputButton">
-  <div class="tags">
-    <div id="person" class="tag selected">PERSON</div>
-    <div id="org" class="tag">ORG</div>
-  </div>
-  <p id="text">
-    <span>I</span>
-    <span>want</span>
-    <span>to,</span>
-    <span>nominate</span>
-    <span>this</span>
-    <span>award</span>
-    <span>to</span>
-    <span>reformed</span>
-    <span>orthodox</span>
-    <span>rabbi</span>
-    <span>Bill</span>
-    <span>Clinton.</span>
-  </p>
-  <div class="div">
-    <label for="tagInput">Add New Tag:</label>
-    <input name="tagInput" type="text" id="tagInput" />
-    <input type="submit" value="Submit" id="tagInputButton">
+<body class="body">
+  <nav class="navbar">
+    <h1 class="header">NER Annotator</h1>
+  </nav>
+  <div class="content">
+    <div class="sidebar">
+      <textarea name="" id="textInput">Bruh</textarea>
+      <input type="submit" value="Submit" id="textInputButton">
+      <input type="file" name="jsonFile" id="jsonFile">
+    </div>
+    <div class="center">
+      <div class="tag-section">
+        <div class="tags">
+          <div id="person" class="tag selected">PERSON</div>
+          <div id="org" class="tag">ORG</div>
+        </div>
+        <div class="add-tag">
+          <input name="tagInput" type="text" id="tagInput" />
+          <div class="tag">+</div>
+        </div>
+      </div>
+      <p id="text">
+        <span>I</span>
+        <span>want</span>
+        <span>to,</span>
+        <span>nominate</span>
+        <span>this</span>
+        <span>award</span>
+        <span>to</span>
+        <span>reformed</span>
+        <span>orthodox</span>
+        <span>rabbi</span>
+        <span>Bill</span>
+        <span>Clinton.</span>
+      </p>
+    </div>
+    <div class="sidebar-right">
+      <textarea id="outputJSON" cols="30" rows="10" readonly></textarea>
+      <input type="submit" value="Copy Output" id="copyOutputButton">
+    </div>
   </div>
 
 </body>
