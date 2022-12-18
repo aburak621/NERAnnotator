@@ -2,7 +2,7 @@ let p = document.querySelector("#text")
 let spans = document.querySelectorAll("p#text>span");
 let jsonInput = document.querySelector("#jsonFile");
 let tagButtons = document.querySelector("div.tags");
-let tagInputButton = document.querySelector("#tagInputButton");
+let tagInputButton = document.querySelector(".plus-button");
 let textInputButton = document.querySelector("#textInputButton");
 let outputJSON = document.querySelector("#outputJSON");
 let copyOutputButton = document.querySelector("#copyOutputButton");
@@ -12,10 +12,12 @@ let startIndex;
 let endIndex;
 let selection = [];
 let selectionText = "";
-let tags = ["PERSON", "ORG", "DATE", "TIME", "LOCATION", "MONEY", "PERCENT", "PRODUCT", "EVENT", "WORK_OF_ART", "LAW", "LANGUAGE", "NORP", "FAC", "GPE", "CARDINAL", "ORDINAL", "QUANTITY", "MISC"];
-let currentTag = tags[0];
+let colors = ["#E81A0C", "#FE6900", "#FEB912", "#FEDA49", "#AFF218", "#FE7D87", "#E54887", "#F4AFCA", "#702BFE", "#B0A6E5", "#2C81FB", "#98DD62", "#039C55", "#33A8A1", "#87DBDD", "#5BA6EB"];
+shuffleArray(colors);
+let currentColorIndex = 2;
+let tags = [{ "tag": "PERSON", "color": colors[0] }, { "tag": "ORG", "color": colors[1] }];
+let currentTag = tags[0]["tag"];
 let entities = [];
-
 
 addEventsToSpans();
 updateTagButtons();
@@ -40,8 +42,10 @@ jsonInput.addEventListener("change", function () {
         entities = json["entities"];
         // Add new tags to the tags list
         entities.forEach((entity) => {
-            if (!tags.includes(entity["tag"])) {
-                tags.push(entity["tag"]);
+            if (!tags.some(e => e["tag"] == entity["tag"])) {
+                let newTag = { "tag": entity["tag"], "color": colors[currentColorIndex % colors.length] };
+                tags.push(newTag);
+                currentColorIndex++;
             };
         })
         updateTagButtons();
@@ -54,15 +58,13 @@ copyOutputButton.addEventListener("mousedown", () => {
     alert("Copied JSON to clipboard.");
 })
 
-// TODO: Tag colors.
-
-// TODO: Page style.
-
 // Ability to add new tags.
 function addTag() {
     let tag = document.querySelector("#tagInput").value.toUpperCase();
-    if (!tags.includes(tag)) {
-        tags.push(tag);
+    if (!tags.some(e => e["tag"] == tag)) {
+        let newTag = { "tag": tag, "color": colors[currentColorIndex % colors.length] };
+        tags.push(newTag);
+        currentColorIndex++;
         updateTagButtons();
     }
 }
@@ -101,9 +103,10 @@ function updateTagButtons() {
     let isFirstItem = true;
     tags.forEach((tag) => {
         let tagButton = document.createElement("div");
-        tagButton.appendChild(document.createTextNode(tag));
-        tagButton.id = tag.toLowerCase();
+        tagButton.appendChild(document.createTextNode(tag["tag"]));
+        tagButton.id = tag["tag"].toLowerCase();
         tagButton.classList.add("tag");
+        tagButton.style.backgroundColor = tag["color"];
         tagButton.addEventListener("mousedown", (event) => {
             currentTag = tagButton.innerText;
             tagButtons.childNodes.forEach((button) => {
@@ -117,7 +120,7 @@ function updateTagButtons() {
         }
         tagButtons.appendChild(tagButton);
     })
-    currentTag = tags[0];
+    currentTag = tags[0]["tag"];
 }
 
 // Apply currently selected tag to the highlighted elements. If it overlaps with other tags deleted those other tags.
@@ -197,4 +200,13 @@ function exportAsJSON() {
     json = JSON.stringify(json, null, 2);
     outputJSON.textContent = json;
     console.log(json);
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
