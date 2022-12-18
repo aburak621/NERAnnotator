@@ -143,6 +143,8 @@ function applyTag() {
     }
     overlappedEntitiesToBeDeleted.reverse().forEach((index) => {
         removeTagNameElement(index);
+        let spanIndex = entities[index]["startIndex"];
+        spans[spanIndex].parentNode.replaceWith(...spans[spanIndex].parentNode.childNodes);
         entities.splice(index, 1);
     })
     if (deleted) {
@@ -155,6 +157,7 @@ function applyTag() {
     let entity = { "text": selectionText, "startIndex": startIndex, "endIndex": endIndex, "tag": currentTag["tag"] };
     entities.push(entity);
     changeTaggedTextBackground(startIndex, endIndex, currentTag)
+    clearSelection();
 }
 
 function changeTaggedTextBackground(startIndex, endIndex, tag) {
@@ -167,6 +170,19 @@ function changeTaggedTextBackground(startIndex, endIndex, tag) {
         newParent.appendChild(spans[i]);
         newParent.innerHTML += " ";
     }
+    spans = document.querySelectorAll("p#text span");
+    newParent.childNodes.forEach((child) => {
+        child.addEventListener("mousedown", (event) => {
+            firstElement = event.target;
+        })
+
+        child.addEventListener("mouseup", (event) => {
+            secondElement = event.target;
+            getSelectedElements();
+            applyTag();
+            exportAsJSON();
+        })
+    })
     addTagNameElement(tag, endIndex, newParent);
 }
 
@@ -178,7 +194,7 @@ function addTagNameElement(tag, endIndex, newParent) {
 
 function removeTagNameElement(indexInEntities) {
     let lastElement = spans[entities[indexInEntities]["endIndex"]];
-    lastElement.removeChild(lastElement.nextSibling);
+    lastElement.parentNode.removeChild(lastElement.parentNode.lastChild);
 }
 
 // Get the selected elements and update the variables for tagging.
@@ -228,4 +244,9 @@ function shuffleArray(array) {
         array[i] = array[j];
         array[j] = temp;
     }
+}
+
+function clearSelection() {
+    window.getSelection().removeAllRanges();
+    if (document.selection) { document.selection.empty(); }
 }
