@@ -264,7 +264,7 @@ function getSelectedElements() {
     }
     // Strip the punctuations and trim the corner space. Stripping punctuations might change!.
     // TODO: Look at the regex.
-    var regex = /[!"#$%&"()*+,-./:;<=>?@[\]^_`{|}~]$/;
+    var regex = /[!#&()*+,-./:;<=>?@[\]^_`{|}~]$/;
     selectionText = selectionText.trim();
     selectionText = selectionText.replace(regex, "");
 }
