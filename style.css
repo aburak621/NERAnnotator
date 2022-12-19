@@ -10,7 +10,8 @@
 textarea,
 .button,
 #text,
-#tagInput {
+#tagInput,
+.font-size-button {
   box-shadow: 1px 3px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -28,6 +29,11 @@ textarea,
   }
 }
 
+.clicked {
+  filter: brightness(0.9);
+  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
 .navbar {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -40,10 +46,42 @@ textarea,
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.navbar>h1 {
+.navbar h1,
+.navbar h2 {
+  font-size: 27px;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.font-size-settings {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.font-size-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: cyan;
+  width: 37px;
+  height: 37px;
+  border: solid 2px black;
+  border-radius: 8px;
+  font-size: 37px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
   font-family: Raleway, sans-serif;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  user-select: none;
 }
 
 .content {
@@ -116,13 +154,13 @@ textarea,
   justify-content: center;
   cursor: pointer;
   font-weight: bold;
-  font-family: Raleway, sans-serif;  
+  font-family: Raleway, sans-serif;
 }
 
 .tag.selected {
   filter: brightness(1.1);
-  color: white;
   box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
+  color: white;
   transition: box-shadow .2s;
   -webkit-text-stroke-width: 1.2px;
   -webkit-text-stroke-color: black;

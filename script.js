@@ -6,6 +6,7 @@ let tagInputButton = document.querySelector(".plus-button");
 let textInputButton = document.querySelector("#textInputButton");
 let outputJSON = document.querySelector("#outputJSON");
 let copyOutputButton = document.querySelector("#copyOutputButton");
+let plusMinusButtons = document.querySelectorAll(".font-size-button");
 let firstElement;
 let secondElement;
 let startIndex;
@@ -22,6 +23,29 @@ let entities = [];
 addEventsToSpans();
 updateTagButtons();
 
+plusMinusButtons.forEach((button) => {
+    button.addEventListener("mousedown", () => {
+        button.classList.add("clicked");
+    })
+    button.addEventListener("mouseup", () => {
+        button.classList.remove("clicked");
+    })
+    button.addEventListener("mouseleave", () => {
+        button.classList.remove("clicked");
+    })
+})
+
+document.querySelector("#font-size-minus").addEventListener("mousedown", (event) => {
+    let currentSize = window.getComputedStyle(p).getPropertyValue("font-size");
+    currentSize = parseInt(currentSize);
+    p.style.fontSize = (currentSize - 1) + "px";
+})
+
+document.querySelector("#font-size-plus").addEventListener("mousedown", (event) => {
+    let currentSize = window.getComputedStyle(p).getPropertyValue("font-size");
+    currentSize = parseInt(currentSize);
+    p.style.fontSize = (currentSize + 1) + "px";
+})
 
 tagInputButton.addEventListener("mousedown", () => {
     addTag();
@@ -30,7 +54,7 @@ tagInputButton.addEventListener("mousedown", () => {
 textInputButton.addEventListener("mousedown", () => {
     let textInput = document.querySelector("#textInput").value;
     createHTMLFromInput(textInput);
-    entities =[];
+    entities = [];
 })
 
 // Handle JSON upload.
