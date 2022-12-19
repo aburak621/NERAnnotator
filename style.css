@@ -138,6 +138,7 @@ textarea,
   border-radius: 8px;
   padding: 30px 20px;
   font-size: 25px;
+  line-height: 1.5;
 }
 
 .header {

@@ -30,6 +30,7 @@ tagInputButton.addEventListener("mousedown", () => {
 textInputButton.addEventListener("mousedown", () => {
     let textInput = document.querySelector("#textInput").value;
     createHTMLFromInput(textInput);
+    entities =[];
 })
 
 // Handle JSON upload.
@@ -40,6 +41,7 @@ jsonInput.addEventListener("change", function () {
         // Update content and variables according to the JSON.
         createHTMLFromInput(json["text"]);
         entities = json["entities"];
+        spans = document.querySelectorAll("p#text span");
         // Add new tags to the tags list
         entities.forEach((entity) => {
             if (!tags.some(e => e["tag"] == entity["tag"])) {
@@ -47,7 +49,18 @@ jsonInput.addEventListener("change", function () {
                 tags.push(newTag);
                 currentColorIndex++;
             };
+            startIndex = entity["startIndex"];
+            endIndex = entity["endIndex"];
+            tags.every((tag) => {
+                if (tag["tag"] == entity["tag"]) {
+                    currentTag = tag;
+                    return false;
+                }
+                return true;
+            })
+            changeTaggedTextBackground(startIndex, endIndex, currentTag)
         })
+        exportAsJSON();
         updateTagButtons();
     }
     fr.readAsText(this.files[0]);
@@ -60,7 +73,7 @@ copyOutputButton.addEventListener("mousedown", () => {
 
 // Ability to add new tags.
 function addTag() {
-    let tag = document.querySelector("#tagInput").value.toUpperCase();
+    let tag = document.querySelector("#tagInput").value.trim().toUpperCase();
     if (!tags.some(e => e["tag"] == tag)) {
         let newTag = { "tag": tag, "color": colors[currentColorIndex % colors.length] };
         tags.push(newTag);
@@ -108,9 +121,9 @@ function updateTagButtons() {
         tagButton.classList.add("tag");
         tagButton.style.backgroundColor = tag["color"];
         tagButton.addEventListener("mousedown", (event) => {
-            tags.every((element) => {
-                if (element["tag"] == event.target.innerText) {
-                    currentTag = element;
+            tags.every((tag) => {
+                if (tag["tag"] == event.target.innerText) {
+                    currentTag = tag;
                     return false;
                 }
                 return true;
@@ -165,6 +178,8 @@ function changeTaggedTextBackground(startIndex, endIndex, tag) {
     // let newParent = document.createElement("div");
     // newParent.style.display = "inline-block";
     newParent.style.backgroundColor = tag["color"];
+    newParent.style.borderRadius = "8px";
+    newParent.style.padding = "3px";
     spans[startIndex].parentNode.insertBefore(newParent, spans[startIndex]);
     for (let i = startIndex; i <= endIndex; i++) {
         newParent.appendChild(spans[i]);
@@ -183,12 +198,13 @@ function changeTaggedTextBackground(startIndex, endIndex, tag) {
             exportAsJSON();
         })
     })
-    addTagNameElement(tag, endIndex, newParent);
+    addTagNameText(tag, endIndex, newParent);
 }
 
-function addTagNameElement(tag, endIndex, newParent) {
+function addTagNameText(tag, endIndex, newParent) {
     let tagElement = document.createElement("b");
     tagElement.appendChild(document.createTextNode(tag["tag"]));
+    tagElement.style.fontSize = "10px";
     newParent.appendChild(tagElement);
 }
 
