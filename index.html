@@ -6,6 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap"
+    rel="stylesheet">
   <script src="script.js" defer></script>
   <title>NER Annotator</title>
 </head>
@@ -16,11 +21,11 @@
   </nav>
   <div class="content">
     <div class="sidebar">
-      <sidebar-item>
+      <div class="sidebar-item">
         <h4 class="input-title">Text Input</h4>
-        <textarea class="output" name="" id="textInput">Bruh</textarea>
+        <textarea class="output" name="" id="textInput" cols="25" rows="5"></textarea>
         <input class="button" type="submit" value="Submit" id="textInputButton">
-      </sidebar-item>
+      </div>
       <div class="sidebar-item">
         <input type="file" name="jsonFile" id="jsonFile" style="display:none;">
         <h4 class="input-title">JSON Input</h4>
@@ -28,7 +33,7 @@
       </div>
       <div class="sidebar-item">
         <h4 class="input-title">Output</h4>
-        <textarea class="output" id="outputJSON" cols="30" rows="10" readonly></textarea>
+        <textarea class="output" id="outputJSON" cols="25" rows="17" readonly></textarea>
         <input class="button" type="submit" value="Copy Output" id="copyOutputButton">
       </div>
     </div>
@@ -44,18 +49,36 @@
         </div>
       </div>
       <p id="text">
-        <span>I</span>
-        <span>want</span>
-        <span>to,</span>
-        <span>nominate</span>
-        <span>this</span>
-        <span>award</span>
-        <span>to</span>
-        <span>reformed</span>
-        <span>orthodox</span>
-        <span>rabbi</span>
-        <span>Bill</span>
-        <span>Clinton.</span>
+        <span>Lorem</span>
+        <span>ipsum</span>
+        <span>dolor,</span>
+        <span>sit</span>
+        <span>amet</span>
+        <span>consectetur</span>
+        <span>adipisicing</span>
+        <span>elit.</span>
+        <span>Esse</span>
+        <span>facere</span>
+        <span>assumenda</span>
+        <span>soluta</span>
+        <span>quibusdam</span>
+        <span>ratione</span>
+        <span>voluptatem</span>
+        <span>et</span>
+        <span>voluptate</span>
+        <span>voluptatum</span>
+        <span>possimus</span>
+        <span>fuga</span>
+        <span>perspiciatis</span>
+        <span>necessitatibus</span>
+        <span>quae</span>
+        <span>iusto</span>
+        <span>dolor</span>
+        <span>asperiores,</span>
+        <span>explicabo</span>
+        <span>tempora</span>
+        <span>similique.</span>
+        <span>Non.</span>
       </p>
     </div>
     <div class="sidebar-right">

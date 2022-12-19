@@ -74,6 +74,10 @@ copyOutputButton.addEventListener("mousedown", () => {
 // Ability to add new tags.
 function addTag() {
     let tag = document.querySelector("#tagInput").value.trim().toUpperCase();
+    if (tag == "") {
+        alert("Please enter a tag.");
+        return;
+    }
     if (!tags.some(e => e["tag"] == tag)) {
         let newTag = { "tag": tag, "color": colors[currentColorIndex % colors.length] };
         tags.push(newTag);
