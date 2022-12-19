@@ -264,9 +264,9 @@ function getSelectedElements() {
     }
     // Strip the punctuations and trim the corner space. Stripping punctuations might change!.
     // TODO: Look at the regex.
-    var regex = /[!"#$%&"()*+,-./:;<=>?@[\]^_`{|}~]/g;
-    selectionText = selectionText.replace(regex, "");
+    var regex = /[!"#$%&"()*+,-./:;<=>?@[\]^_`{|}~]$/;
     selectionText = selectionText.trim();
+    selectionText = selectionText.replace(regex, "");
 }
 
 // Create the final JSON to be exported.
